@@ -22,9 +22,9 @@ def Welcome(message):
 def say(message):
     if message.text == "Рандомное число скажи!!!":
         bot.send_message(message.chat.id, "Хорошо, хорошо, ваше число - {}".format(str(randint(0,100))))
-    elif message.text.lower == "привет" or "привет!":
+    elif message.text == "Привет!":
         bot.send_message(message.chat.id, "Пока")
-    elif message.text.lower == "придумай пин-код!":
-        bot.send_message(message.chat.id,"глеб -  бот")
+    elif message.text == "Придумай пин-код!":
+        bot.send_message(message.chat.id,"Ваш пин-код {}.\nНикому его не говорите!!!".format(str(randint(100000,999999))))
 
 bot.polling(none_stop = True)
