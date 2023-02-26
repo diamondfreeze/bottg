@@ -13,7 +13,7 @@ def Welcome(message):
     item1 = types.KeyboardButton("Рандомное число скажи!!!")
     item2 = types.KeyboardButton("Привет!")
     item3 = types.KeyboardButton("Придумай пин-код!")
-    markup.add(item1,item2)
+    markup.add(item1,item2, item3)
     bot.send_message(message.chat.id, "Привет, {0.first_name}.\nМеня зовут <b>{1.first_name}</b>, и я не бот.".format(message.from_user, bot.get_me()),parse_mode='html',reply_markup = markup)
     
 
