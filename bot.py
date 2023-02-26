@@ -23,7 +23,7 @@ def say(message):
     if message.text == "Рандомное число скажи!!!":
         bot.send_message(message.chat.id, "Хорошо, хорошо, ваше число - {}".format(str(randint(0,100))))
     elif message.text == "Привет!":
-        bot.send_message(message.chat.id, "Пока")
+        bot.send_message(message.chat.id, "Пока!")
     elif message.text == "Придумай пин-код!":
         bot.send_message(message.chat.id,"Ваш пин-код {}.\nНикому его не говорите!!!".format(str(randint(100000,999999))))
 
