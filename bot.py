@@ -25,7 +25,6 @@ def say(message):
     elif message.text.lower == "привет" or "привет!":
         bot.send_message(message.chat.id, "Пока")
     elif message.text.lower == "Придумай пин-код!":
-        bot.send_message(message.chat.id, "Ваш пин-код - {}\nНикому его не рассказывайте!!!".format(str(randint(100000, 999999))))
-
+        bot.send_message(message.chat.id, "Ваш пин-код - {}".format(str(randint(100000, 999999))))
 
 bot.polling(none_stop = True)
