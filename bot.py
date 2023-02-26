@@ -9,7 +9,7 @@ def Welcome(message):
     stik = open('welcome.webp','rb')
     bot.send_sticker(message.chat.id, stik)
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    item1 = types.KeyboardButton("Рандомное число скажи!!!")
+    item1 = types.KeyboardButton("Рандомное число скажи!")
     item2 = types.KeyboardButton("Привет!")
     item3 = types.KeyboardButton("Придумай пароль!")
     markup.add(item1, item2, item3)
@@ -19,7 +19,7 @@ def Welcome(message):
 
 @bot.message_handler(content_types = ['text'])
 def say(message):
-    if message.text == "Рандомное число скажи!!!":
+    if message.text == "Рандомное число скажи!":
         bot.send_message(message.chat.id, "Хорошо, хорошо, ваше число - {}".format(randint(0,100)))
     elif message.text == "Привет!":
         bot.send_message(message.chat.id, "Пока!")
