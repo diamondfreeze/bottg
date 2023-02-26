@@ -12,7 +12,8 @@ def Welcome(message):
     item1 = types.KeyboardButton("Рандомное число скажи!")
     item2 = types.KeyboardButton("Привет!")
     item3 = types.KeyboardButton("Придумай пароль!")
-    markup.add(item1, item2, item3)
+    item4 = types.KeyboardButton("Пока!")
+    markup.add(item1, item2, item3, item4)
     bot.send_message(message.chat.id, "Привет, {0.first_name}.\nМеня зовут <b>{1.first_name}</b>, и я не бот.".format(message.from_user, bot.get_me()),parse_mode='html',reply_markup = markup)
     
 
@@ -25,5 +26,6 @@ def say(message):
         bot.send_message(message.chat.id, "Пока!")
     elif message.text == "Придумай пароль!":
         bot.send_message(message.chat.id,"Ваш пароль {}.\nНикому его не говорите!!!".format(f"{choice(alpha)}{choice(alpha)}{choice(alpha)}{choice(alpha)}{choice(alpha)}{choice(alpha)}{choice(alpha)}{choice(alpha)}"))
-
+    elif message.text == "Пока!":
+        bot.send_message(message.chat.id, "Привет!")
 bot.polling(none_stop = True)
