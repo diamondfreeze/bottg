@@ -59,7 +59,7 @@ def say(message):
             bomber_markup.add(bomber_item1)
             sleep(3)
             for i in range(50): bot.send_message(message.chat.id, f"{choice(['бот!','ботинок!','ботик!'])}")
-            mode = 'bomber'
+            mode = 'standart'
             bot.send_message(message.chat.id, "Надеюсь ты выучил урок!", parse_mode='html', reply_markup=bomber_markup)
 
         else: bot.send_message(message.chat.id, "Я вас не понять.")
