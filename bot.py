@@ -98,6 +98,6 @@ def say(message):
         else:
             bot.send_message(message.chat.id,
                              'У меня нет такой функции\n'
-                             'Обращайтесь к админам DiamondFreeze и NikitaPROGOD')
+                             'Обращайтесь к админам DiamondFreeze и NikitaPROGOD!')
 
 bot.polling(none_stop=True)
