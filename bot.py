@@ -2,6 +2,8 @@ import telebot
 import config
 from random import *
 from telebot import types
+from time import sleep
+mode = 'standart'
 bot = telebot.TeleBot(config.TOKEN)
 alpha = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
 @bot.message_handler(commands=['start'])
@@ -15,25 +17,50 @@ def welcome(message):
 
 @bot.message_handler(content_types=['text'])
 def say(message):
-    if message.text == "Привет!" or message.text == "Назад!":
-        bass_markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-        bass_item1 = types.KeyboardButton("Рандомный режим")
-        bass_item2 = types.KeyboardButton("Придумай пароль!")
-        bass_item3 = types.KeyboardButton("Расскажи мне историю")
-        bass_markup.add(bass_item1,bass_item2,bass_item3)
-        bot.send_message(message.chat.id, "Привет, неуч.",parse_mode='html', reply_markup = bass_markup)
-    #randommod
-    elif message.text == "Рандомный режим":
-        random_markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-        random_item1 = types.KeyboardButton("Рандомное число скажи!")
-        random_item2 = types.KeyboardButton("Придумай пароль!")
-        random_item3 = types.KeyboardButton("Назад!")
-        random_markup.add(random_item1, random_item2, random_item3)
-        bot.send_message(message.chat.id, "RANDOM MODE ACTIVATED", parse_mode='html', reply_markup=random_markup)
-    elif message.text == "Рандомное число скажи!": bot.send_message(message.chat.id, "Хорошо, хорошо, ваше число - {}".format(randint(0, 100)))
-    elif message.text == "Придумай пароль!": bot.send_message(message.chat.id, "Ваш пароль {}.\nНикому его не говорите!!!".format(f"{choice(alpha)}{choice(alpha)}{choice(alpha)}{choice(alpha)}{choice(alpha)}{choice(alpha)}{choice(alpha)}{choice(alpha)}"))
+    global mode
+    if mode != 'active_bomber':
+        if message.text == "Привет!" or message.text == "Назад!":
+            mode = 'standart'
+            bass_markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+            bass_item1 = types.KeyboardButton("Рандомный режим")
+            bass_item2 = types.KeyboardButton("Кинуть бомбер!")
+            bass_item3 = types.KeyboardButton("Расскажи мне историю")
+            bass_markup.add(bass_item1,bass_item2,bass_item3)
+            bot.send_message(message.chat.id, "Привет, неуч.",parse_mode='html', reply_markup = bass_markup)
 
-    elif message.text == "Назад!": bot.send_message(message.chat.id, "Снова привет.",parse_mode='html', reply_markup = bass_markup)
-    elif message.text == "Расскажи мне историю": bot.send_message(message.chat.id, "Нет(@_@)")
-    else: bot.send_message(message.chat.id, "Я вас не понять.")
+        #randommod
+        elif message.text == "Рандомный режим" and mode == 'standart':
+            mode = 'random'
+            random_markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+            random_item1 = types.KeyboardButton("Рандомное число скажи!")
+            random_item2 = types.KeyboardButton("Придумай пароль!")
+            random_item3 = types.KeyboardButton("Назад!")
+            random_markup.add(random_item1, random_item2, random_item3)
+            bot.send_message(message.chat.id, "RANDOM MODE ACTIVATED", parse_mode='html', reply_markup=random_markup)
+        elif message.text == "Рандомное число скажи!" and mode == 'random': bot.send_message(message.chat.id, "Хорошо, хорошо, ваше число - {}".format(randint(0, 100)))
+        elif message.text == "Придумай пароль!" and mode == 'random': bot.send_message(message.chat.id, "Ваш пароль {}.\nНикому его не говорите!!!".format(f"{choice(alpha)}{choice(alpha)}{choice(alpha)}{choice(alpha)}{choice(alpha)}{choice(alpha)}{choice(alpha)}{choice(alpha)}"))
+
+        #bombermode
+        elif message.text == "Кинуть бомбер!" and mode == 'standart':
+            mode = 'bomber'
+            bomber_markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+            bomber_item1 = types.KeyboardButton("Назад!")
+            bomber_markup.add(bomber_item1)
+            bot.send_message(message.chat.id, "Введите номер телефона жертвы.\nПример:8 987-654-32-10", parse_mode='html', reply_markup=bomber_markup)
+        elif message.text != 'Назад!' and mode == 'bomber':
+            mode = 'active_bomber'
+            clear_markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+            clearr = types.KeyboardButton(f"{choice(['Пожалуйста, остановись','Пощади!','NO, GOD, NOO!'])}")
+            clear_markup.add(clearr)
+            bot.send_message(message.chat.id, "Кидать бомберы плохо, поэтому получай!", parse_mode='html', reply_markup=clear_markup)
+            clear_markup = types.ReplyKeyboardRemove()
+            bomber_markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+            bomber_item1 = types.KeyboardButton("Назад!")
+            bomber_markup.add(bomber_item1)
+            sleep(3)
+            for i in range(50): bot.send_message(message.chat.id, f"{choice(['бот!','ботинок!','ботик!'])}")
+            mode = 'bomber'
+            bot.send_message(message.chat.id, "Надеюсь ты выучил урок!", parse_mode='html', reply_markup=bomber_markup)
+
+        else: bot.send_message(message.chat.id, "Я вас не понять.")
 bot.polling(none_stop=True)
