@@ -9,11 +9,11 @@ bot = telebot.TeleBot(config.TOKEN)
 alpha = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
 
 
-@bot.message_handler(commands=['start'])
+@bot.message_handler(commands = ['start'])
 def welcome(message):
     stik = open('welcome.webp', 'rb')
     bot.send_sticker(message.chat.id, stik)
-    welcome_markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    welcome_markup = types.ReplyKeyboardMarkup(resize_keyboard = True)
     welcome_item1 = types.KeyboardButton("Привет!!!")
     welcome_markup.add(welcome_item1)
     bot.send_message(message.chat.id, "Привет, {0.first_name}.\nМеня зовут <b>{1.first_name}</b>.\nПоздоровайся со мной!!!".format(message.from_user, bot.get_me()), parse_mode='html', reply_markup=welcome_markup)
