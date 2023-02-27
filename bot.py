@@ -33,7 +33,7 @@ def say(message):
             bass_item3 = types.KeyboardButton("Расскажи мне историю")
             bass_markup.add(bass_item1, bass_item2, bass_item3)
             bot.send_message(message.chat.id,
-                             "Привет, пользователь!!!",
+                             "Привет, {0.first_name}!!!".format(message.from_user),
                              parse_mode='html',
                              reply_markup = bass_markup,
                              )
