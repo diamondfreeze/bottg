@@ -26,8 +26,9 @@ def say(message):
     elif message.text == "Рандомный режим":
         random_markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
         random_item1 = types.KeyboardButton("Рандомное число скажи!")
-        random_item2 = types.KeyboardButton("Назад!")
-        random_markup.add(random_item1, random_item2)
+        random_item2 = types.KeyboardButton("Придумай пароль!")
+        random_item3 = types.KeyboardButton("Назад!")
+        random_markup.add(random_item1, random_item2, random_item3)
         bot.send_message(message.chat.id, "RANDOM MODE ACTIVATED", parse_mode='html', reply_markup=random_markup)
     elif message.text == "Рандомное число скажи!": bot.send_message(message.chat.id, "Хорошо, хорошо, ваше число - {}".format(randint(0, 100)))
     elif message.text == "Придумай пароль!": bot.send_message(message.chat.id, "Ваш пароль {}.\nНикому его не говорите!!!".format(f"{choice(alpha)}{choice(alpha)}{choice(alpha)}{choice(alpha)}{choice(alpha)}{choice(alpha)}{choice(alpha)}{choice(alpha)}"))
