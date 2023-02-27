@@ -7,7 +7,14 @@ from time import sleep
 mode = 'standart'
 bot = telebot.TeleBot(configtok.TOKEN)
 alpha = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
-
+stories = ['Как-то раз, гуляя в саду, я встретил Зелёнку...\n...\n...\n...\n'
+           'а вообщем уже не важно\n...\nпотому что это был труп',
+           'Эх помню историю про медвядя...\n...\nсейчас расскажу...\n...\n...\n...\n'
+           'а вообщем уже не важно\n...\nпотому что тот медведь нашёл зажигалку',
+           'Однажды в ресторане я заказал стейк медиум рааааааар\n...\n'
+           'после моего произношения, почему-то я больше не видел этого официанта\n...\n'
+           'видимо у меня слишком прекрасный акцент\n...\n'
+           'стейк между прочим был вкусный']
 
 @bot.message_handler(commands = ['start'])
 def welcome(message):
@@ -16,10 +23,16 @@ def welcome(message):
     welcome_markup = types.ReplyKeyboardMarkup(resize_keyboard = True)
     welcome_item1 = types.KeyboardButton("Привет!!!")
     welcome_markup.add(welcome_item1)
-    bot.send_message(message.chat.id, "Привет, {0.first_name}.\nМеня зовут <b>{1.first_name}</b>.\nПоздоровайся со мной!!!".format(message.from_user, bot.get_me()), parse_mode='html', reply_markup=welcome_markup)
+    bot.send_message(message.chat.id,
+                     'Привет, {0.first_name}.\n'
+                     'Меня зовут <b>{1.first_name}</b>.\n'
+                     'Поздоровайся со мной!!!'.format(message.from_user, bot.get_me()),
+                     parse_mode = 'html',
+                     reply_markup = welcome_markup,
+                     )
 
 
-@bot.message_handler(content_types=['text'])
+@bot.message_handler(content_types = ['text'])
 def say(message):
     global mode
     if mode != 'active_bomber':
@@ -38,17 +51,21 @@ def say(message):
                              reply_markup = bass_markup,
                              )
 
-        #randommod
+        #randommode
         elif message.text == "Рандомный режим" and mode == 'standart':
             mode = 'random'
             random_markup = types.ReplyKeyboardMarkup(row_width = 2,
-                                                      resize_keyboard=True,
+                                                      resize_keyboard = True,
                                                       )
             random_item1 = types.KeyboardButton("Скажи рандом число")
             random_item2 = types.KeyboardButton("Придумай пароль")
             random_item3 = types.KeyboardButton("Назад")
             random_markup.add(random_item1, random_item2, random_item3)
-            bot.send_message(message.chat.id, "RANDOM MODE ACTIVATED", parse_mode='html', reply_markup=random_markup)
+            bot.send_message(message.chat.id,
+                             "RANDOM MODE ACTIVATED",
+                             parse_mode = 'html',
+                             reply_markup = random_markup,
+                             )
 
         elif message.text == "Скажи рандом число" and mode == 'random':
             bot.send_message(message.chat.id,
@@ -60,24 +77,25 @@ def say(message):
         #bombermode
         elif message.text == "Кинуть бомбер" and mode == 'standart':
             mode = 'bomber'
-            bomber_markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-            bomber_item1 = types.KeyboardButton("Назад")
+            bomber_markup = types.ReplyKeyboardMarkup(resize_keyboard = True)
+            bomber_item1 = types.KeyboardButton('Назад')
             bomber_markup.add(bomber_item1)
             bot.send_message(message.chat.id, "Введите номер телефона жертвы.\nПример:8 987-654-32-10",
-                             parse_mode='html',
-                             reply_markup=bomber_markup)
+                             parse_mode = 'html',
+                             reply_markup = bomber_markup,
+                             )
 
         elif message.text != 'Назад' and mode == 'bomber':
             mode = 'active_bomber'
             clear_markup = types.ReplyKeyboardMarkup(row_width = 2,
-                                                     resize_keyboard=True,
+                                                     resize_keyboard = True,
                                                      )
             clear = types.KeyboardButton(f"{choice(['Пожалуйста, остановись','Пощади!','NO, GOD, NOO!'])}")
             clear_markup.add(clear)
             bot.send_message(message.chat.id,
                              "Кидать бомберы плохо, поэтому получай!",
-                             parse_mode='html',
-                             reply_markup=clear_markup)
+                             parse_mode = 'html',
+                             reply_markup = clear_markup)
             clear_markup = types.ReplyKeyboardRemove()
             bomber_markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
             bomber_item1 = types.KeyboardButton("Назад")
@@ -95,9 +113,22 @@ def say(message):
                              reply_markup = bomber_markup,
                              )
 
+        #storymode
+        elif message.text == 'Расскажи мне историю' and mode == 'standart':
+            mode = 'story'
+            story_markup = types.ReplyKeyboardMarkup(resize_keyboard = True)
+            story_item1 = types.KeyboardButton('Назад')
+            story_markup.add(story_item1)
+            bot.send_message(message.chat.id,
+                             choice(stories),
+                             parse_mode = 'html',
+                             reply_markup = story_markup,
+                             )
+            mode = 'standart'
+
         else:
             bot.send_message(message.chat.id,
                              'У меня нет такой функции\n'
                              'Обращайтесь к админам DiamondFreeze и NikitaPROGOD!')
 
-bot.polling(none_stop=True)
+bot.polling(none_stop = True)
