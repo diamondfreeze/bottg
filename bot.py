@@ -15,7 +15,6 @@ bot = telebot.TeleBot(configtok.TOKEN)
 
 
 
-
 @bot.message_handler(commands=['start'])
 def welcome(message):
     stik = open('welcome.webp', 'rb')
