@@ -151,16 +151,10 @@ def say(message):
                 q.remove(y)
                 ctolica_markup.add(x,y)
             ctolica_markup.add(ctolica_item5)
-
             bot.send_message(message.chat.id, f'{strana}', reply_markup=ctolica_markup)
         elif mode == 'ctolica':
-            if message.text == stolica:
-                bot.send_message(message.chat.id, 'Правильно, молодец!')
-            else:
+            if message.text != stolica:
                 bot.send_message(message.chat.id,'Неправильно!!')
-
-
-
         else:
             bot.send_message(message.chat.id,
                              'У меня нет такой функции\n'
