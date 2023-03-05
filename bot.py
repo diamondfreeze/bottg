@@ -132,7 +132,7 @@ def say(message):
         elif message.text == 'Давай играть в столицы' or message.text == stolica:
             mode = 'ctolica'
             strana = []
-            ctolica_markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+            ctolica_markup = types.ReplyKeyboardMarkup(row_width=2,resize_keyboard=True)
             materic = choice([countries.euro_jopa, countries.asia_jopa, countries.south_jopa, countries.north_jopa, countries.avstralia_jopa])
             for keys in materic:
                 strana.append(keys)
@@ -143,7 +143,15 @@ def say(message):
             ctolica_item3 = types.KeyboardButton(f'{countries.all_countries[choice([s for s in choice([countries.euro_jopa, countries.asia_jopa, countries.south_jopa, countries.north_jopa, countries.avstralia_jopa])])]}')
             ctolica_item4 = types.KeyboardButton(f'{countries.all_countries[choice([s for s in choice([countries.euro_jopa, countries.asia_jopa, countries.south_jopa, countries.north_jopa, countries.avstralia_jopa])])]}')
             ctolica_item5 = types.KeyboardButton('Назад')
-            ctolica_markup.add(ctolica_item1, ctolica_item2, ctolica_item3, ctolica_item4, ctolica_item5)
+            q = [ctolica_item1, ctolica_item2, ctolica_item3, ctolica_item4]
+            for i in range(2):
+                x = choice(q)
+                q.remove(x)
+                y = choice(q)
+                q.remove(y)
+                ctolica_markup.add(x,y)
+            ctolica_markup.add(ctolica_item5)
+
             bot.send_message(message.chat.id, f'{strana}', reply_markup=ctolica_markup)
         elif mode == 'ctolica':
             if message.text == stolica:
