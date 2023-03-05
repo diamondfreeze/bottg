@@ -138,13 +138,11 @@ def say(message):
                 strana.append(keys)
             strana = choice(strana)
             stolica = materic[strana]
-            print(strana)
             ctolica_item1 = types.KeyboardButton(f'{stolica}')
             ctolica_item2 = types.KeyboardButton(f'{countries.all_countries[choice([s for s in choice([countries.euro_jopa, countries.asia_jopa, countries.south_jopa, countries.north_jopa, countries.avstralia_jopa])])]}')
             ctolica_item3 = types.KeyboardButton(f'{countries.all_countries[choice([s for s in choice([countries.euro_jopa, countries.asia_jopa, countries.south_jopa, countries.north_jopa, countries.avstralia_jopa])])]}')
             ctolica_item4 = types.KeyboardButton(f'{countries.all_countries[choice([s for s in choice([countries.euro_jopa, countries.asia_jopa, countries.south_jopa, countries.north_jopa, countries.avstralia_jopa])])]}')
             ctolica_item5 = types.KeyboardButton('Назад')
-
             ctolica_markup.add(ctolica_item1, ctolica_item2, ctolica_item3, ctolica_item4, ctolica_item5)
             bot.send_message(message.chat.id, f'{strana}', reply_markup=ctolica_markup)
         elif mode == 'ctolica':
