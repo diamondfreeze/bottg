@@ -156,8 +156,7 @@ def say(message):
                 bot.send_message(message.chat.id, 'Неправильно!')
 
         else:
-            bot.send_message(message.chat.id,
-                             'У меня нет такой функции\n'
+            bot.send_message(message.chat.id, 'У меня нет такой функции\n'
                              'Обращайтесь к админам DiamondFreeze и NikitaPROGOD!')
 
 
