@@ -1,3 +1,3 @@
 # bottg
-# Создатели diamondfreeze и NikitaPROGOD
+# Создатель NikitaPROGOD
 # телеграмм бот
